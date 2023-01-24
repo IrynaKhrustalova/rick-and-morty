@@ -1,10 +1,10 @@
-package iryna.khrustaleva.rick_and_morty_app.dto.mapper;
+package application.dto.mapper;
 
-import iryna.khrustaleva.rick_and_morty_app.dto.external.ApiCharacterDto;
-import iryna.khrustaleva.rick_and_morty_app.dto.external.CharacterResponseDto;
-import iryna.khrustaleva.rick_and_morty_app.model.Gender;
-import iryna.khrustaleva.rick_and_morty_app.model.MovieCharacter;
-import iryna.khrustaleva.rick_and_morty_app.model.Status;
+import application.dto.external.ApiCharacterDto;
+import application.dto.external.CharacterResponseDto;
+import application.model.Gender;
+import application.model.MovieCharacter;
+import application.model.Status;
 import org.springframework.stereotype.Component;
 
 @Component

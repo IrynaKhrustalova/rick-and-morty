@@ -1,11 +1,10 @@
-package iryna.khrustaleva.rick_and_morty_app.dto.external;
+package application.dto.external;
 
 import lombok.Data;
 
 @Data
-public class CharacterResponseDto {
+public class ApiCharacterDto {
     private Long id;
-    private Long externalId;
     private String name;
     private String status;
     private String gender;

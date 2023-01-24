@@ -1,8 +1,8 @@
-package iryna.khrustaleva.rick_and_morty_app.repository;
+package application.repository;
 
+import application.model.MovieCharacter;
 import java.util.List;
 import java.util.Set;
-import iryna.khrustaleva.rick_and_morty_app.model.MovieCharacter;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

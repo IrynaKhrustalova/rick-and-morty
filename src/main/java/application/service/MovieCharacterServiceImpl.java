@@ -1,18 +1,20 @@
-package iryna.khrustaleva.rick_and_morty_app.service;
+package application.service;
 
+import application.dto.external.ApiCharacterDto;
+import application.dto.external.ApiResponseDto;
+import application.dto.mapper.MovieCharacterMapper;
+import application.model.MovieCharacter;
+import application.repository.MovieCharacterRepository;
 import java.time.LocalDateTime;
-import java.util.List;
-import java.util.Set;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.function.Function;
 import java.util.stream.Collectors;
-import iryna.khrustaleva.rick_and_morty_app.dto.external.ApiCharacterDto;
-import iryna.khrustaleva.rick_and_morty_app.dto.external.ApiResponseDto;
-import iryna.khrustaleva.rick_and_morty_app.dto.mapper.MovieCharacterMapper;
-import iryna.khrustaleva.rick_and_morty_app.model.MovieCharacter;
-import iryna.khrustaleva.rick_and_morty_app.repository.MovieCharacterRepository;
-import jakarta.annotation.PostConstruct;
+import javax.annotation.PostConstruct;
+
+import io.swagger.annotations.Api;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
@@ -24,7 +26,9 @@ public class MovieCharacterServiceImpl implements MovieCharacterService {
     private final MovieCharacterRepository movieCharacterRepository;
     private final MovieCharacterMapper mapper;
 
-    public MovieCharacterServiceImpl(HttpClient httpClient, MovieCharacterRepository movieCharacterRepository, MovieCharacterMapper mapper) {
+    public MovieCharacterServiceImpl(HttpClient httpClient,
+                                     MovieCharacterRepository movieCharacterRepository,
+                                     MovieCharacterMapper mapper) {
         this.httpClient = httpClient;
         this.movieCharacterRepository = movieCharacterRepository;
         this.mapper = mapper;
@@ -37,10 +41,11 @@ public class MovieCharacterServiceImpl implements MovieCharacterService {
         log.info("syncExternalCharacters method was called at " + LocalDateTime.now());
         ApiResponseDto apiResponseDto = httpClient.get("https://rickandmortyapi.com/api/character",
                 ApiResponseDto.class);
-       saveDtoToDb(apiResponseDto);
+        saveDtoToDb(apiResponseDto);
 
         while (apiResponseDto.getInfo().getNext() != null) {
-            apiResponseDto = httpClient.get(apiResponseDto.getInfo().getNext(), ApiResponseDto.class);
+            apiResponseDto = httpClient.get(apiResponseDto.getInfo().getNext(),
+                    ApiResponseDto.class);
             saveDtoToDb(apiResponseDto);
         }
     }
@@ -49,7 +54,7 @@ public class MovieCharacterServiceImpl implements MovieCharacterService {
     public MovieCharacter getRandomMovieCharacter() {
         long count = movieCharacterRepository.count();
         long randomId = (long) (Math.random() * count);
-        return movieCharacterRepository.getReferenceById(randomId);
+        return movieCharacterRepository.getById(randomId);
     }
 
     @Override
@@ -68,7 +73,8 @@ public class MovieCharacterServiceImpl implements MovieCharacterService {
                 .collect(Collectors.toMap(MovieCharacter::getExternalId, Function.identity()));
         Set<Long> existingIds = existingCharactersWithIds.keySet();
         externalIds.removeAll(existingIds);
-        List<MovieCharacter> charactersToSave = externalIds.stream().map(i -> mapper.parseApiCharacterResponseDto(externalDtos.get(i)))
+        List<MovieCharacter> charactersToSave = externalIds.stream().map(i ->
+                        mapper.parseApiCharacterResponseDto(externalDtos.get(i)))
                 .collect(Collectors.toList());
         movieCharacterRepository.saveAll(charactersToSave);
     }

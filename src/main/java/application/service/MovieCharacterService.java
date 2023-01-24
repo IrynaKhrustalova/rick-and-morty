@@ -1,7 +1,6 @@
-package iryna.khrustaleva.rick_and_morty_app.service;
+package application.service;
 
-import iryna.khrustaleva.rick_and_morty_app.model.MovieCharacter;
-
+import application.model.MovieCharacter;
 import java.util.List;
 
 public interface MovieCharacterService {

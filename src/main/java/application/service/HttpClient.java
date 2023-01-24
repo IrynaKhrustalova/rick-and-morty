@@ -1,22 +1,19 @@
-package iryna.khrustaleva.rick_and_morty_app.service;
+package application.service;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.apache.http.HttpEntity;
-import org.apache.http.client.ClientProtocolException;
+import java.io.IOException;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
-import org.apache.http.util.EntityUtils;
 import org.springframework.stereotype.Component;
-
-import java.io.IOException;
 
 @Component
 public class HttpClient {
     private final CloseableHttpClient httpClient = HttpClients.createDefault();
     private ObjectMapper objectMapper = new ObjectMapper();
+
     {
         objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
     }
