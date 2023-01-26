@@ -7,10 +7,15 @@
 
 This is a simple project based on the Rick & Morty cartoon. It contents only with backend part.
 The main purpose of this application is to get characters from open API https://rickandmortyapi.com/api/character
-and filter them by customer request.
+and filter them by customer request. 
+
+## ⚡Application functionality
+1. Get random character from api /movie-characters/random
+2. Get all characters contains name /movie-characters/by-name
+3. Get all characters by gender
+4. Get all characters by status
 
 ## ⚡How run this project
-
 This manual describes main steps for application running. To run this project you will need to install and set up following components:
 
 - JDK 11 or higher
@@ -24,7 +29,7 @@ This manual describes main steps for application running. To run this project yo
 5. In the package resources, open an application.properties file and set there your credentials instead of dummies for DB connection.
 
   ````
-      spring.datasource.url="jdbc:postgresql://<URL_TO_DATABASE>:8083/<DATABASE_NAME>"
+      spring.datasource.url="jdbc:postgresql://<URL_TO_DATABASE>:5432/<DATABASE_NAME>"
       spring.datasource.username=<DATABASE_NAME>
       spring.datasource.password=<DATABASE_PASSWORD>
    ````  
@@ -37,7 +42,9 @@ This manual describes main steps for application running. To run this project yo
 6. Start application.
 7. Open [localhost:8083/swagger-iu/#/](localhost:8083/swagger-iu/#/) page in your browser and test the application.
 
-## 🔥Application technologies used
+**You can also get this project from [Docker](https://hub.docker.com/r/irynakhrustalova/rick-and-morty) and run in your terminal.**
+
+## ⚡Application technologies used
 
 - JDK 11
 - Maven

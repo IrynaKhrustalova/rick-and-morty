@@ -9,4 +9,8 @@ public interface MovieCharacterService {
     MovieCharacter getRandomMovieCharacter();
 
     List<MovieCharacter> getAllByNameContains(String namePart);
+
+    List<MovieCharacter> getAllByStatus(String status);
+
+    List<MovieCharacter> getAllByGender(String gender);
 }

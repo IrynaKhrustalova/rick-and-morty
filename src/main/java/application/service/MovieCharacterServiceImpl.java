@@ -3,7 +3,9 @@ package application.service;
 import application.dto.external.ApiCharacterDto;
 import application.dto.external.ApiResponseDto;
 import application.dto.mapper.MovieCharacterMapper;
+import application.model.Gender;
 import application.model.MovieCharacter;
+import application.model.Status;
 import application.repository.MovieCharacterRepository;
 import java.time.LocalDateTime;
 import java.util.Arrays;
@@ -13,8 +15,6 @@ import java.util.Set;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 import javax.annotation.PostConstruct;
-
-import io.swagger.annotations.Api;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
@@ -60,6 +60,16 @@ public class MovieCharacterServiceImpl implements MovieCharacterService {
     @Override
     public List<MovieCharacter> getAllByNameContains(String namePart) {
         return movieCharacterRepository.findAllByNameContains(namePart);
+    }
+
+    @Override
+    public List<MovieCharacter> getAllByGender(String gender) {
+        return movieCharacterRepository.findAllByGender(Gender.valueOf(gender));
+    }
+
+    @Override
+    public List<MovieCharacter> getAllByStatus(String status) {
+        return movieCharacterRepository.findAllByStatus(Status.valueOf(status));
     }
 
     private void saveDtoToDb(ApiResponseDto apiResponseDto) {
